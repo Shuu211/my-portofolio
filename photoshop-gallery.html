@@ -1,0 +1,537 @@
+<!--gallery.html -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerie Photoshop - Youness Ablard</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00bfff;
+      --dark-bg: #111;
+      --card-bg: #222;
+      --text-color: #fff;
+      --accent-color: #ff6b6b;
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    /* Navigation */
+    nav {
+      background-color: rgba(0,0,0,0.8);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+    
+    .gallery-header {
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+    }
+    
+    .gallery-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+      background: linear-gradient(to right, #00bfff, #4da6ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      transition: all 0.3s;
+    }
+    
+    .back-button:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+    
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.9);
+      z-index: 1000;
+      overflow: auto;
+      padding: 2rem;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-content {
+      background-color: var(--card-bg);
+      max-width: 800px;
+      width: 100%;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .modal-header {
+      padding: 1rem;
+      position: relative;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    .modal-close:hover {
+      color: var(--primary-color);
+    }
+    
+    .modal-body {
+      padding: 1rem;
+    }
+    
+    .modal-image {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+    }
+
+    /* Project Card Styles */
+    .project {
+      background-color: var(--card-bg);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s, box-shadow 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .project:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    }
+    
+    .project-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-bottom: 2px solid rgba(0,191,255,0.3);
+    }
+    
+    .project-content {
+      padding: 1.5rem;
+    }
+    
+    .project h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: var (--primary-color);
+    }
+    
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    
+    .project-tag {
+      background-color: rgba(255,255,255,0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    
+    .project-button {
+      display: inline-block;
+      margin-top: 1rem;
+      background-color: transparent;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    
+    .project-button:hover {
+      background-color: var(--primary-color);
+      color: var(--dark-bg);
+    }
+
+    /* Enhanced Mobile Responsiveness for Gallery Pages */
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 1.5rem;
+      }
+      
+      .gallery-header {
+        padding: 3.5rem 1.5rem 1.5rem;
+      }
+      
+      .gallery-title {
+        font-size: 2rem;
+      }
+      
+      .project-content {
+        padding: 1.2rem;
+      }
+      
+      .project-content h2 {
+        font-size: 1.3rem;
+      }
+      
+      .project-content p {
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: column;
+        padding: 1rem;
+      }
+      
+      .logo {
+        margin-bottom: 0.8rem;
+      }
+      
+      .nav-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .gallery-title {
+        font-size: 1.8rem;
+      }
+      
+      .back-button {
+        margin-bottom: 1.5rem;
+      }
+      
+      .modal {
+        padding: 0.8rem;
+      }
+      
+      .modal-header h2 {
+        font-size: 1.3rem;
+      }
+      
+      .modal-body {
+        padding: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">YA</div>
+    <div class="nav-links">
+      <a href="index.html#about">À propos</a>
+      <a href="index.html#projects">Projets</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="gallery-header">
+    <a href="index.html#projects" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+      <span>Retour au portfolio</span>
+    </a>
+    <h1 class="gallery-title">Galerie Photoshop</h1>
+    <p>Découvrez tous mes travaux réalisés avec Adobe Photoshop</p>
+  </div>
+
+  <div class="gallery">
+    <!-- First Row -->
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/cannette 1.png" alt="Publicité Energy Drink" class="project-img">
+      <div class="project-content">
+        <h2>Publicité Energy Drink</h2>
+        <p>Création publicitaire pour une boisson énergisante avec manipulation d'image et effets de lumière dynamiques. Mise en valeur du produit par des contrastes visuels saisissants et une atmosphère énergique.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Publicité</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/cannette 1.png" data-title="Publicité Energy Drink">Voir en détail</button>
+      </div>
+    </div>
+    
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/canette pub 2.png" alt="Affiche Promotionnelle Boisson" class="project-img">
+      <div class="project-content">
+        <h2>Affiche Promotionnelle</h2>
+        <p>Design d'affiche publicitaire moderne intégrant le produit dans un environnement graphique contemporain. Techniques avancées d'ombrage et d'éclairage pour une présentation impactante et mémorable.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Design publicitaire</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/cannette pub 2.png" data-title="Affiche Promotionnelle">Voir en détail</button>
+      </div>
+    </div>
+    
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/Japan_City_Lights_Bright_Skyscrapers_4K_HD_medium.png" alt="Cityscape Japonais" class="project-img">
+      <div class="project-content">
+        <h2>Cityscape Nocturne</h2>
+        <p>Retouche artistique d'un paysage urbain japonais nocturne mettant en valeur les lumières et l'atmosphère unique de la ville. Traitement colorimétrique avancé pour accentuer les néons et l'ambiance futuriste.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Retouche urbaine</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/Japan_City_Lights_Bright_Skyscrapers_4K_HD_medium.png" data-title="Cityscape Nocturne">Voir en détail</button>
+      </div>
+    </div>
+    
+    <!-- Second Row -->
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/affiche conso.png" alt="Campagne Consoglobe" class="project-img">
+      <div class="project-content">
+        <h2>Campagne Écologique</h2>
+        <p>Conception d'une affiche de sensibilisation environnementale pour Consoglobe, alliant message fort et esthétique épurée. Utilisation de techniques de composition pour guider le regard vers le message central.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Design engagé</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/affiche conso.png" data-title="Campagne Écologique">Voir en détail</button>
+      </div>
+    </div>
+    
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/new york.png" alt="Skyline New York" class="project-img">
+      <div class="project-content">
+        <h2>Skyline New York</h2>
+        <p>Réinterprétation artistique de la célèbre skyline new-yorkaise avec traitement photographique stylisé. Travail sur les contrastes et la perspective pour créer une ambiance cinématographique et dramatique.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Manipulation artistique</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/new york.png" data-title="Skyline New York">Voir en détail</button>
+      </div>
+    </div>
+    
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/chaussure test.png" alt="Design Concept Chaussure" class="project-img">
+      <div class="project-content">
+        <h2>Design Concept Sneaker</h2>
+        <p>Création conceptuelle d'une chaussure de sport avec intégration parfaite dans un environnement digital. Utilisation de techniques avancées de photomontage et d'éclairage 3D pour un rendu réaliste et attractif.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Design produit</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/chaussure test.png" data-title="Design Concept Sneaker">Voir en détail</button>
+      </div>
+    </div>
+
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/ecolove 1.png" alt="Ecolove Campaign 1" class="project-img">
+      <div class="project-content">
+        <h2>Campagne Ecolove I</h2>
+        <p>Premier volet d'une série d'affiches pour la campagne Ecolove, centré sur la protection des écosystèmes marins. Association d'éléments graphiques et photographiques pour un message visuel fort et émotionnel.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Communication visuelle</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/ecolove 1.png" data-title="Campagne Ecolove I">Voir en détail</button>
+      </div>
+    </div>
+    
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/ecolove 2.png" alt="Ecolove Campaign 2" class="project-img">
+      <div class="project-content">
+        <h2>Campagne Ecolove II</h2>
+        <p>Second volet de la campagne Ecolove abordant la thématique de la conservation forestière. Travail approfondi sur la symbolique visuelle et l'harmonie des couleurs pour renforcer l'impact du message écologique.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Design écologique</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/ecolove 2.png" data-title="Campagne Ecolove II">Voir en détail</button>
+      </div>
+    </div>
+
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/ecolove 3.png" alt="Ecolove Campaign 3" class="project-img">
+      <div class="project-content">
+        <h2>Campagne Ecolove III</h2>
+        <p>Troisième visuel de la série Ecolove focalisé sur la protection de la faune sauvage. Compositing d'images et retouche minutieuse pour créer une pièce visuellement saisissante qui interpelle sur les enjeux de la biodiversité.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Compositing</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/ecolove 3.png" data-title="Campagne Ecolove III">Voir en détail</button>
+      </div>
+    </div>
+
+    <div class="project" data-category="photoshop">
+      <img src="images/photoshop/ex.png" alt="Expérimentation visuelle" class="project-img">
+      <div class="project-content">
+        <h2>Expérimentation Créative</h2>
+        <p>Recherche artistique explorant les limites entre photographie et design graphique. Cette expérimentation utilise des techniques mixtes pour créer une esthétique contemporaine unique, entre abstraction et figuration.</p>
+        <div class="project-tags">
+          <span class="project-tag">Photoshop</span>
+          <span class="project-tag">Art digital</span>
+        </div>
+        <button class="project-button view-project" data-image="images/photoshop/ex.png" data-title="Expérimentation Créative">Voir en détail</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for project details -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <button class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img src="" alt="" id="modalImage" class="modal-image">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animation for projects when they come into view
+      const projects = document.querySelectorAll('.project');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }, 100 * Array.from(projects).indexOf(entry.target));
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {threshold: 0.1});
+      
+      projects.forEach(project => {
+        project.style.opacity = '0';
+        project.style.transform = 'translateY(20px)';
+        project.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        observer.observe(project);
+      });
+      
+      // Modal functionality
+      const modal = document.getElementById('projectModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalClose = document.querySelector('.modal-close');
+      const viewButtons = document.querySelectorAll('.view-project');
+      
+      viewButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const imageSrc = button.getAttribute('data-image');
+          const title = button.getAttribute('data-title');
+          
+          modalImage.src = imageSrc;
+          modalTitle.textContent = title;
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      
+      modalClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      });
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
+  </script>
+
+  <!-- Update the footer of the photoshop gallery -->
+  <footer>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/youness-ablard/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/le_youn1/" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+    
+    <div class="email">
+      <i class="fas fa-envelope"></i>
+      <a href="mailto:youness.ablard1@gmail.com">youness.ablard1@gmail.com</a>
+    </div>
+    
+    <p>&copy; 2025 Youness Ablard. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
