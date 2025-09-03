@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galerie Blender - Youness Ablard</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Page-local tweaks to align with existing gallery styling */
+    .gallery-header { padding: 4rem 2rem 2rem; text-align: center; }
+    .gallery-title { font-size: 2.5rem; margin-bottom: 1rem; color: var(--primary-color); }
+    .back-button { display:inline-flex; align-items:center; gap:.5rem; color:var(--text-color); text-decoration:none; font-weight:500; margin-bottom:1.5rem; transition:all .3s; }
+    .back-button:hover { color:var(--primary-color); transform: translateX(-5px); }
+    .gallery { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap:2rem; max-width:1200px; margin:0 auto; padding:2rem; }
+    .project { opacity:0; transform: translateY(20px); transition: opacity .5s ease, transform .5s ease; }
+  </style>
+  <meta name="description" content="Galerie Blender de Youness Ablard: travaux 3D réalisés sous Blender (Katana, Pokéball, Phare, Forêt, etc.)." />
+</head>
+<body>
+  <nav>
+    <div class="logo">YA</div>
+    <div class="nav-links">
+      <a href="index.html#about">À propos</a>
+      <a href="index.html#projects">Projets</a>
+      <a href="blender-gallery.html" aria-current="page">Blender</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+  </nav>
+
+  <div class="gallery-header">
+    <a href="index.html#projects" class="back-button"><i class="fa fa-arrow-left"></i> Retour aux projets</a>
+    <h1 class="gallery-title">Galerie Blender</h1>
+    <p>Travaux 3D réalisés sous Blender</p>
+  </div>
+
+  <div class="gallery">
+    <!-- Datés du plus récent au plus ancien -->
+    <article class="project" data-category="blender" data-date="2025-08-22">
+      <img src="images/3D/katana.png" alt="Katana 3D modélisé dans Blender" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h2>Katana</h2>
+        <p>Modélisation et rendu d'un katana, matériaux métalliques et textures de manche.</p>
+        <div class="project-tags"><span class="project-tag">Blender</span><span class="project-tag">3D</span></div>
+        <button class="project-button view-project" data-image="images/3D/katana.png" data-title="Katana">Voir en détail</button>
+      </div>
+    </article>
+
+    <article class="project" data-category="blender" data-date="2025-08-20">
+      <img src="images/3D/Pokeball.png" alt="Pokéball 3D avec éclairage studio" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h2>Pokéball</h2>
+        <p>Étude d'éclairage et de matériaux sur une Pokéball.</p>
+        <div class="project-tags"><span class="project-tag">Blender</span><span class="project-tag">3D</span></div>
+        <button class="project-button view-project" data-image="images/3D/Pokeball.png" data-title="Pokéball">Voir en détail</button>
+      </div>
+    </article>
+
+    <article class="project" data-category="blender" data-date="2025-08-18">
+      <img src="images/3D/PHARE.png" alt="Phare 3D sur falaise au crépuscule" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h2>Phare</h2>
+        <p>Composition d'un phare en bord de mer, travail des volumes et de l'ambiance.</p>
+        <div class="project-tags"><span class="project-tag">Blender</span><span class="project-tag">3D</span></div>
+        <button class="project-button view-project" data-image="images/3D/PHARE.png" data-title="Phare">Voir en détail</button>
+      </div>
+    </article>
+
+    <article class="project" data-category="blender" data-date="2025-08-16">
+      <img src="images/3D/MY FIRST FOREST .png" alt="Première forêt 3D avec éclairage volumétrique" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h2>My First Forest</h2>
+        <p>Scène de forêt procédurale, brume et lumières volumétriques.</p>
+        <div class="project-tags"><span class="project-tag">Blender</span><span class="project-tag">3D</span></div>
+        <button class="project-button view-project" data-image="images/3D/MY FIRST FOREST .png" data-title="My First Forest">Voir en détail</button>
+      </div>
+    </article>
+
+    <article class="project" data-category="blender" data-date="2025-08-14">
+      <img src="images/3D/logo minesota.png" alt="Logo Minnesota modélisé en 3D" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h2>Logo Minnesota</h2>
+        <p>Exploration typographique en 3D et ombrage stylisé.</p>
+        <div class="project-tags"><span class="project-tag">Blender</span><span class="project-tag">3D</span></div>
+        <button class="project-button view-project" data-image="images/3D/logo minesota.png" data-title="Logo Minnesota">Voir en détail</button>
+      </div>
+    </article>
+
+    <article class="project" data-category="blender" data-date="2025-08-12">
+      <img src="images/3D/MON PREMIER TRIANGLE .png" alt="Premier triangle 3D d'apprentissage" class="project-img" loading="lazy" />
+      <div class="project-content">
+        <h2>Mon Premier Triangle</h2>
+        <p>Premiers pas en 3D: primitives, matériaux et rendu.</p>
+        <div class="project-tags"><span class="project-tag">Blender</span><span class="project-tag">3D</span></div>
+        <button class="project-button view-project" data-image="images/3D/MON PREMIER TRIANGLE .png" data-title="Mon Premier Triangle">Voir en détail</button>
+      </div>
+    </article>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle"></h3>
+        <button class="modal-close" aria-label="Fermer">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImage" class="modal-image" alt="" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Tri par date (desc)
+      const gallery = document.querySelector('.gallery');
+      const items = Array.from(gallery.querySelectorAll('.project'));
+      const withIndex = items.map((el, idx) => ({ el, idx, time: el.dataset.date ? Date.parse(el.dataset.date) : -Infinity }));
+      withIndex.sort((a,b) => (b.time - a.time) || (a.idx - b.idx));
+      withIndex.forEach(({el}) => gallery.appendChild(el));
+
+      // Modal
+      const modal = document.getElementById('projectModal');
+      const modalImg = document.getElementById('modalImage');
+      const modalTitle = document.getElementById('modalTitle');
+      const closeBtn = document.querySelector('.modal-close');
+      document.querySelectorAll('.view-project').forEach(btn => {
+        btn.addEventListener('click', () => {
+          modalImg.src = btn.dataset.image;
+          modalImg.alt = btn.dataset.title;
+          modalTitle.textContent = btn.dataset.title;
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      });
+      closeBtn.addEventListener('click', () => { modal.style.display = 'none'; document.body.style.overflow = 'auto'; });
+      modal.addEventListener('click', e => { if (e.target === modal) { modal.style.display = 'none'; document.body.style.overflow = 'auto'; } });
+
+      // Apparition
+      const observer = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.project').forEach(p=>observer.observe(p));
+    });
+  </script>
+
+  <footer>
+    <div class="social-links"></div>
+    <div class="email"></div>
+    <p>&copy; 2025 Youness Ablard. Tous droits réservés.</p>
+  </footer>
+</body>
+</html>
